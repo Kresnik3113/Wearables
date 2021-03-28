@@ -11,27 +11,28 @@ service GpsService {
   //RPC service 1 to 1, client sends a single request to the server and gets a single response.
   rpc gps(stream gpsRequest) returns (stream gpsResponse) {}
 
- // rpc speed(SpeedRequest) returns  (SpeedResponse) {}
+  rpc time_distance(tdRequest) returns  (tdResponse) {}
 }
 
 //The gps request to be used by the defined service.
 message gpsRequest {
   int32 x_axis= 1;
   int32 y_axis=2;
-  int32 distance=3;
-
+  int32 distance= 3;
 }
-
 //The gps response to be used by the defined service.
 message gpsResponse {
   int32 x_axis= 1;
   int32 y_axis=2;
 }
 
-//message SpeedRequest {
-//  int32 speed = 1;
-//}
-//
-//message SpeedResponse{
-//  int32 speed = 1;
-//}
+message tdRequest {
+  int32 x_axis= 1;
+  int32 y_axis=2;
+}
+
+message tdResponse {
+  int32 distanceLeft= 1;
+  int32 time=2;
+}
+

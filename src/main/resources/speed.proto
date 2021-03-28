@@ -11,16 +11,29 @@ service SpeedService {
   //RPC service 1 to 1, client sends a single request to the server and gets a single response.
   rpc Speed(stream speedRequest) returns (stream speedResponse) {}
 
+  rpc howLongLeft(howLongLeftRequest) returns (howLongLeftResponse) {}
 }
 
-//The gps request to be used by the defined service.
+//
 message speedRequest {
   int32 current_speed= 1;
 
 }
 
-//The gps response to be used by the defined service.
+//
 message speedResponse {
   int32 current_speed= 1;
 
 }
+
+message howLongLeftRequest {
+  int32 distanceLeft= 1;
+
+}
+
+//
+message howLongLeftResponse {
+  int32 timeLeft= 1;
+
+}
+

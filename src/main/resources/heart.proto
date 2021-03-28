@@ -11,16 +11,29 @@ service HeartService {
   //RPC service 1 to 1, client sends a single request to the server and gets a single response.
   rpc Heart(stream heartRequest) returns (stream heartResponse) {}
 
+  rpc updateStockLevels(slowRequest) returns (slowResponse) {}
+
 }
 
-//The gps request to be used by the defined service.
+//
 message heartRequest {
-  int32 heart_rate= 1;
+  int32 heartRate= 1;
 
 }
 
-//The gps response to be used by the defined service.
+//
 message heartResponse {
-  int32 heart_rate= 1;
+  int32 heartRate= 1;
+
+}
+
+message slowRequest {
+  bool tooHigh= 1;
+
+}
+
+//
+message slowResponse {
+  bool tooHigh= 1;
 
 }
