@@ -21,7 +21,7 @@ message gpsRequest {
   int32 distance= 3;
 }
 //The gps response to be used by the defined service.
-message gpsResponse {
+message gpsRequestgpsResponse {
   int32 x_axis= 1;
   int32 y_axis=2;
 }

@@ -21,20 +21,20 @@ public class gpsClient {
 
         blockingStub=GpsServiceGrpc.newBlockingStub(channel);
         asyncStub=GpsServiceGrpc.newStub(channel);
-
-
+        getDestination();
+        getDistanceLeft();
     }
-     public static void getDestination(gpsResponse message){
+     public static void getDestination(){
          ArrayList<Integer> xaxis=new ArrayList<>();
          ArrayList<Integer> yaxis=new ArrayList<>();
 
          StreamObserver<gpsResponse> responseStreamObserver=new StreamObserver<gpsResponse>() {
              @Override
              public void onNext(gpsResponse value) {
-                 xaxis.add(message.getXAxis());
-                 yaxis.add(message.getYAxis());
+                 xaxis.add(value.getXAxis());
+                 yaxis.add(value.getYAxis());
 
-                 System.out.println("Gpa co-ordinates x-axis: "+message.getXAxis()+" y-axis: "+message.getYAxis());
+                 System.out.println("Gps co-ordinates x-axis: "+value.getXAxis()+" y-axis: "+value.getYAxis());
              }
 
              @Override

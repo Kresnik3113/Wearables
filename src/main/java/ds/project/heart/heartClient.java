@@ -48,25 +48,11 @@ public class heartClient {
                 System.out.println("Completed getHeartRate....");
             }
         };
-        StreamObserver<heartRequest> requestStreamObserver=asyncStub.heart(responseStreamObserver);
-        try {
-            requestStreamObserver.onNext(heartRequest.newBuilder()
-                    .setHeartRate(100)
-                    .build());
+
+        asyncStub.heart(request,responseStreamObserver);
 
 
-            // Mark the end of requests
-            requestStreamObserver.onCompleted();
 
-            // Sleep for a bit before sending the next one.
-            Thread.sleep(new Random().nextInt(1000) + 500);
-
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
     public static void slowDown(){
         slowRequest slowReq=slowRequest.newBuilder().setTooHigh(true).build();

@@ -187,10 +187,15 @@ public final class HeartServiceGrpc {
      *RPC service 1 to 1, client sends a single request to the server and gets a single response.
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<ds.project.heart.heartRequest> heart(
-        io.grpc.stub.StreamObserver<ds.project.heart.heartResponse> responseObserver) {
-      return asyncBidiStreamingCall(
-          getChannel().newCall(getHeartMethod(), getCallOptions()), responseObserver);
+//    public io.grpc.stub.StreamObserver<ds.project.heart.heartRequest> heart(
+//        io.grpc.stub.StreamObserver<ds.project.heart.heartResponse> responseObserver) {
+//      return asyncBidiStreamingCall(
+//          getChannel().newCall(getHeartMethod(), getCallOptions()), responseObserver);
+//    }
+    public void heart(ds.project.heart.heartRequest request,
+                      io.grpc.stub.StreamObserver<ds.project.heart.heartResponse> responseObserver) {
+      asyncServerStreamingCall(
+              getChannel().newCall(getHeartMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
