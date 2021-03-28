@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ds.project.gps";
+option java_outer_classname = "GpsServiceImpl";
+
+package gps;
+
+//Create a service to offer.
+service GpsService {
+  //RPC service 1 to 1, client sends a single request to the server and gets a single response.
+  rpc gps(stream gpsRequest) returns (stream gpsResponse) {}
+
+  rpc time_distance(tdRequest) returns  (tdResponse) {}
+}
+
+//The gps request to be used by the defined service.
+message gpsRequest {
+  int32 x_axis= 1;
+  int32 y_axis=2;
+  int32 distance= 3;
+}
+//The gps response to be used by the defined service.
+message gpsResponse {
+  int32 x_axis= 1;
+  int32 y_axis=2;
+}
+
+message tdRequest {
+  int32 x_axis= 1;
+  int32 y_axis=2;
+}
+
+message tdResponse {
+  int32 distanceLeft= 1;
+  int32 time=2;
+}
+
