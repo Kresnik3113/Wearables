@@ -63,35 +63,35 @@ public final class HeartServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<ds.project.heart.slowRequest,
-      ds.project.heart.slowResponse> getUpdateStockLevelsMethod;
+      ds.project.heart.slowResponse> getSlowMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "updateStockLevels",
+      fullMethodName = SERVICE_NAME + '/' + "Slow",
       requestType = ds.project.heart.slowRequest.class,
       responseType = ds.project.heart.slowResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<ds.project.heart.slowRequest,
-      ds.project.heart.slowResponse> getUpdateStockLevelsMethod() {
-    io.grpc.MethodDescriptor<ds.project.heart.slowRequest, ds.project.heart.slowResponse> getUpdateStockLevelsMethod;
-    if ((getUpdateStockLevelsMethod = HeartServiceGrpc.getUpdateStockLevelsMethod) == null) {
+      ds.project.heart.slowResponse> getSlowMethod() {
+    io.grpc.MethodDescriptor<ds.project.heart.slowRequest, ds.project.heart.slowResponse> getSlowMethod;
+    if ((getSlowMethod = HeartServiceGrpc.getSlowMethod) == null) {
       synchronized (HeartServiceGrpc.class) {
-        if ((getUpdateStockLevelsMethod = HeartServiceGrpc.getUpdateStockLevelsMethod) == null) {
-          HeartServiceGrpc.getUpdateStockLevelsMethod = getUpdateStockLevelsMethod = 
+        if ((getSlowMethod = HeartServiceGrpc.getSlowMethod) == null) {
+          HeartServiceGrpc.getSlowMethod = getSlowMethod = 
               io.grpc.MethodDescriptor.<ds.project.heart.slowRequest, ds.project.heart.slowResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "heart.HeartService", "updateStockLevels"))
+                  "heart.HeartService", "Slow"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   ds.project.heart.slowRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   ds.project.heart.slowResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new HeartServiceMethodDescriptorSupplier("updateStockLevels"))
+                  .setSchemaDescriptor(new HeartServiceMethodDescriptorSupplier("Slow"))
                   .build();
           }
         }
      }
-     return getUpdateStockLevelsMethod;
+     return getSlowMethod;
   }
 
   /**
@@ -136,9 +136,9 @@ public final class HeartServiceGrpc {
 
     /**
      */
-    public void updateStockLevels(ds.project.heart.slowRequest request,
+    public void slow(ds.project.heart.slowRequest request,
         io.grpc.stub.StreamObserver<ds.project.heart.slowResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getUpdateStockLevelsMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getSlowMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -151,12 +151,12 @@ public final class HeartServiceGrpc {
                 ds.project.heart.heartResponse>(
                   this, METHODID_HEART)))
           .addMethod(
-            getUpdateStockLevelsMethod(),
+            getSlowMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 ds.project.heart.slowRequest,
                 ds.project.heart.slowResponse>(
-                  this, METHODID_UPDATE_STOCK_LEVELS)))
+                  this, METHODID_SLOW)))
           .build();
     }
   }
@@ -195,10 +195,10 @@ public final class HeartServiceGrpc {
 
     /**
      */
-    public void updateStockLevels(ds.project.heart.slowRequest request,
+    public void slow(ds.project.heart.slowRequest request,
         io.grpc.stub.StreamObserver<ds.project.heart.slowResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getUpdateStockLevelsMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSlowMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -225,9 +225,9 @@ public final class HeartServiceGrpc {
 
     /**
      */
-    public ds.project.heart.slowResponse updateStockLevels(ds.project.heart.slowRequest request) {
+    public ds.project.heart.slowResponse slow(ds.project.heart.slowRequest request) {
       return blockingUnaryCall(
-          getChannel(), getUpdateStockLevelsMethod(), getCallOptions(), request);
+          getChannel(), getSlowMethod(), getCallOptions(), request);
     }
   }
 
@@ -254,14 +254,14 @@ public final class HeartServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<ds.project.heart.slowResponse> updateStockLevels(
+    public com.google.common.util.concurrent.ListenableFuture<ds.project.heart.slowResponse> slow(
         ds.project.heart.slowRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getUpdateStockLevelsMethod(), getCallOptions()), request);
+          getChannel().newCall(getSlowMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_UPDATE_STOCK_LEVELS = 0;
+  private static final int METHODID_SLOW = 0;
   private static final int METHODID_HEART = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
@@ -281,8 +281,8 @@ public final class HeartServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_UPDATE_STOCK_LEVELS:
-          serviceImpl.updateStockLevels((ds.project.heart.slowRequest) request,
+        case METHODID_SLOW:
+          serviceImpl.slow((ds.project.heart.slowRequest) request,
               (io.grpc.stub.StreamObserver<ds.project.heart.slowResponse>) responseObserver);
           break;
         default:
@@ -350,7 +350,7 @@ public final class HeartServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new HeartServiceFileDescriptorSupplier())
               .addMethod(getHeartMethod())
-              .addMethod(getUpdateStockLevelsMethod())
+              .addMethod(getSlowMethod())
               .build();
         }
       }

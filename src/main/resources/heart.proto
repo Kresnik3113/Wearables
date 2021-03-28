@@ -11,7 +11,7 @@ service HeartService {
   //RPC service 1 to 1, client sends a single request to the server and gets a single response.
   rpc Heart(stream heartRequest) returns (stream heartResponse) {}
 
-  rpc updateStockLevels(slowRequest) returns (slowResponse) {}
+  rpc Slow(slowRequest) returns (slowResponse) {}
 
 }
 

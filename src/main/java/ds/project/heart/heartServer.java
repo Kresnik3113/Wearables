@@ -1,35 +1,35 @@
-package ds.project.gps;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Properties;
+package ds.project.heart;
 
-import javax.jmdns.JmDNS;
-import javax.jmdns.ServiceInfo;
-
+import ds.project.gps.gpsServer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
-public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.util.Properties;
+
+public class heartServer extends HeartServiceGrpc.HeartServiceImplBase {
 
     public static void main(String[] args){
 
         //create server object
-        gpsServer gserver=new gpsServer();
+        heartServer hserver=new heartServer();
 
         //assign properties
-        Properties properties =gserver.getProperties();
-        gserver.registerService(properties);
+        Properties properties =hserver.getProperties();
+        hserver.registerService(properties);
 
         //get the services port ()
         int port = Integer.valueOf(properties.getProperty("service_port"));
 
         try {
             Server server = ServerBuilder.forPort(port)
-                    .addService(gserver)
+                    .addService(hserver)
                     .build()
                     .start();
 
@@ -92,12 +92,12 @@ public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
     }
 
     @Override
-    public StreamObserver<gpsRequest> gps(StreamObserver<gpsResponse> responseObserver) {
-        return super.gps(responseObserver);
+    public StreamObserver<heartRequest> heart(StreamObserver<heartResponse> responseObserver) {
+        return super.heart(responseObserver);
     }
 
     @Override
-    public void timeDistance(tdRequest request, StreamObserver<tdResponse> responseObserver) {
-        super.timeDistance(request, responseObserver);
+    public void slow(slowRequest request, StreamObserver<slowResponse> responseObserver) {
+        super.slow(request, responseObserver);
     }
 }

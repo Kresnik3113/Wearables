@@ -46,12 +46,12 @@ public final class HeartServiceImpl {
       "\n\013heart.proto\022\005heart\"!\n\014heartRequest\022\021\n\t" +
       "heartRate\030\001 \001(\005\"\"\n\rheartResponse\022\021\n\thear" +
       "tRate\030\001 \001(\005\"\036\n\013slowRequest\022\017\n\007tooHigh\030\001 " +
-      "\001(\010\"\037\n\014slowResponse\022\017\n\007tooHigh\030\001 \001(\0102\210\001\n" +
-      "\014HeartService\0228\n\005Heart\022\023.heart.heartRequ" +
-      "est\032\024.heart.heartResponse\"\000(\0010\001\022>\n\021updat" +
-      "eStockLevels\022\022.heart.slowRequest\032\023.heart" +
-      ".slowResponse\"\000B&\n\020ds.project.heartB\020Hea" +
-      "rtServiceImplP\001b\006proto3"
+      "\001(\010\"\037\n\014slowResponse\022\017\n\007tooHigh\030\001 \001(\0102{\n\014" +
+      "HeartService\0228\n\005Heart\022\023.heart.heartReque" +
+      "st\032\024.heart.heartResponse\"\000(\0010\001\0221\n\004Slow\022\022" +
+      ".heart.slowRequest\032\023.heart.slowResponse\"" +
+      "\000B&\n\020ds.project.heartB\020HeartServiceImplP" +
+      "\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

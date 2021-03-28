@@ -1,35 +1,35 @@
-package ds.project.gps;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Properties;
+package ds.project.speed;
 
-import javax.jmdns.JmDNS;
-import javax.jmdns.ServiceInfo;
-
+import ds.project.heart.heartServer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
-public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.util.Properties;
+
+public class speedServer extends SpeedServiceGrpc.SpeedServiceImplBase {
 
     public static void main(String[] args){
 
         //create server object
-        gpsServer gserver=new gpsServer();
+        speedServer sserver=new speedServer();
 
         //assign properties
-        Properties properties =gserver.getProperties();
-        gserver.registerService(properties);
+        Properties properties =sserver.getProperties();
+        sserver.registerService(properties);
 
         //get the services port ()
         int port = Integer.valueOf(properties.getProperty("service_port"));
 
         try {
             Server server = ServerBuilder.forPort(port)
-                    .addService(gserver)
+                    .addService(sserver)
                     .build()
                     .start();
 
@@ -92,12 +92,12 @@ public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
     }
 
     @Override
-    public StreamObserver<gpsRequest> gps(StreamObserver<gpsResponse> responseObserver) {
-        return super.gps(responseObserver);
+    public void howLongLeft(howLongLeftRequest request, StreamObserver<howLongLeftResponse> responseObserver) {
+        super.howLongLeft(request, responseObserver);
     }
 
     @Override
-    public void timeDistance(tdRequest request, StreamObserver<tdResponse> responseObserver) {
-        super.timeDistance(request, responseObserver);
+    public StreamObserver<speedRequest> speed(StreamObserver<speedResponse> responseObserver) {
+        return super.speed(responseObserver);
     }
 }
