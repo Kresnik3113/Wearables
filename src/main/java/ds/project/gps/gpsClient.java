@@ -75,5 +75,29 @@ public class gpsClient {
              e.printStackTrace();
          }
      }
+     public  static void  getDistanceLeft(){
+        tdRequest request=tdRequest.newBuilder()
+                .setXAxis(50)
+                .setYAxis(50)
+                .build();
+        StreamObserver<tdResponse> responseStreamObserver=new StreamObserver<tdResponse>() {
+            @Override
+            public void onNext(tdResponse value) {
+             System.out.println("Distance left is: "+value.getDistanceLeft());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("getDistanceLeft complete...");
+            }
+        };
+        asyncStub.timeDistance(request,responseStreamObserver);
+
+     }
 
 }
