@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ds.project.speed";
+option java_outer_classname = "SpeedServiceImpl";
+
+package speed;
+
+//Create a service to offer.
+service SpeedService {
+  //RPC service 1 to 1, client sends a single request to the server and gets a single response.
+  rpc Speed(stream speedRequest) returns (stream speedResponse) {}
+
+}
+
+//The gps request to be used by the defined service.
+message speedRequest {
+  int32 current_speed= 1;
+
+}
+
+//The gps response to be used by the defined service.
+message speedResponse {
+  int32 current_speed= 1;
+
+}

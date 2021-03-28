@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ds.project.heart";
+option java_outer_classname = "HeartServiceImpl";
+
+package heart;
+
+//Create a service to offer.
+service HeartService {
+  //RPC service 1 to 1, client sends a single request to the server and gets a single response.
+  rpc Heart(stream heartRequest) returns (stream heartResponse) {}
+
+}
+
+//The gps request to be used by the defined service.
+message heartRequest {
+  int32 heart_rate= 1;
+
+}
+
+//The gps response to be used by the defined service.
+message heartResponse {
+  int32 heart_rate= 1;
+
+}
