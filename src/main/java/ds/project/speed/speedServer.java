@@ -49,7 +49,7 @@ public class speedServer extends SpeedServiceGrpc.SpeedServiceImplBase {
 
     private Properties getProperties() {
         Properties properties = null;
-        try (InputStream input = new FileInputStream("src/main/resources/gps.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/speed.properties")) {
             properties = new Properties();
             // load a properties file
             properties.load(input);

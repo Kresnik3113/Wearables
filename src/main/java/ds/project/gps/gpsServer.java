@@ -93,7 +93,31 @@ public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
 
     @Override
     public StreamObserver<gpsRequest> gps(StreamObserver<gpsResponse> responseObserver) {
-        return super.gps(responseObserver);
+        return new StreamObserver<gpsRequest>() {
+            @Override
+            public void onNext(gpsRequest value) {
+
+                int x= value.getXAxis();
+                int y= value.getYAxis();
+                int distance= value.getDistance();
+                System.out.println(x);
+                int newX=x*(distance/2);
+                int newY=y*(distance/2);
+
+                gpsResponse response = gpsResponse.newBuilder().setXAxis(newX).setYAxis(newY).build();
+                responseObserver.onNext(response);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
     }
 
     @Override

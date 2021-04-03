@@ -49,7 +49,7 @@ public class heartServer extends HeartServiceGrpc.HeartServiceImplBase {
 
     private Properties getProperties() {
         Properties properties = null;
-        try (InputStream input = new FileInputStream("src/main/resources/gps.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/heart.properties")) {
             properties = new Properties();
             // load a properties file
             properties.load(input);

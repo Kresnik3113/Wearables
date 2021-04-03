@@ -16,7 +16,7 @@ service HeartService {
 }
 
 //
-message heartRequest {
+message heartRequest {_heart._tcp.local
   int32 heartRate= 1;
 
 }
