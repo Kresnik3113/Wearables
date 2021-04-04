@@ -63,7 +63,14 @@ public class WearableClient extends  JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int distance= Integer.parseInt(travelDistanceTextField.getText());
+                int distance=0;
+                String strDistance= travelDistanceTextField.getText();
+                if (strDistance.matches("-?\\d+")){
+                    distance= Integer.parseInt(strDistance);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Only numbers can be entered");
+                    return;
+                }
                 travelDistanceTextField.setText("");
                 System.out.println(distance);
                 getDestination(initialXaxis,initialYaxis,distance);
