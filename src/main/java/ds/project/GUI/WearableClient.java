@@ -38,6 +38,7 @@ public class WearableClient extends  JFrame{
     private JTextField timeLeftTextField;
     private JButton timeLeftButton;
     private JLabel timeLeftLabel;
+    private JTextArea detailsTextArea;
 
     private static  int xaxis;
     private static  int yaxis;
@@ -248,7 +249,7 @@ public class WearableClient extends  JFrame{
 
                 @Override
                 public void onCompleted() {
-
+                    detailsTextArea.append("Set destination for coordinates: "+xaxis+", "+yaxis+" for a "+distance+"m distance from initial destination");
                     System.out.println("stream is completed");
                 }
 
