@@ -1,7 +1,6 @@
 package ds.project.speed;
 
-import ds.project.gps.gpsResponse;
-import ds.project.heart.heartServer;
+
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -79,11 +78,10 @@ public  static int speed=10;
             // Register a service
             ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port, service_description_properties);
             jmdns.registerService(serviceInfo);
-            System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
-            // Wait a bit
+            System.out.printf("registering service with type %s and name %s \n", service_type, service_name);
+
             Thread.sleep(1000);
-            // Unregister all services
-            //jmdns.unregisterAllServices();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (InterruptedException e) {

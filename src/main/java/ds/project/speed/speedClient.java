@@ -1,6 +1,6 @@
 package ds.project.speed;
 
-import ds.project.heart.*;
+
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;

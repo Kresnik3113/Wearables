@@ -249,7 +249,7 @@ public class WearableClient extends  JFrame{
 
                 @Override
                 public void onCompleted() {
-                    detailsTextArea.append("Set destination for coordinates: "+xaxis+", "+yaxis+" for a "+distance+"m distance from initial destination");
+                    detailsTextArea.append("Set destination for coordinates: "+xaxis+", "+yaxis+" for a "+distance+"m distance from initial destination\n");
                     System.out.println("stream is completed");
                 }
 
@@ -295,7 +295,7 @@ public class WearableClient extends  JFrame{
                 dleft=dLeft;
                 System.out.println("you have "+dLeft+" meters left, and have been running for "+value.getTime()+" seconds");
                 distanceAndTimeLeftTextField.setText("you have "+value.getDistanceLeft()+" meters left, and have been running for "+value.getTime()+" seconds");
-
+                detailsTextArea.append("you have "+value.getDistanceLeft()+" meters left, and have been running for "+value.getTime()+" seconds\n");
             }
 
             @Override
@@ -349,7 +349,8 @@ public class WearableClient extends  JFrame{
 
         System.out.println("roughly "+longRes.getTimeLeft()+" seconds");
         System.out.println("wwwwwwwwwwwwwwwwwwwwwwww!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        timeLeftTextField.setText("roughly "+longRes.getTimeLeft()+" seconds");
+        timeLeftTextField.setText("roughly "+longRes.getTimeLeft()+" seconds of the run left at the current pace");
+        detailsTextArea.append("roughly "+longRes.getTimeLeft()+" seconds of the run left at the current pace\n");
 
 
     }

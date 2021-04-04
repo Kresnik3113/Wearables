@@ -1,6 +1,6 @@
 package ds.project.gps;
 
-import ds.project.coordinates;
+
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;

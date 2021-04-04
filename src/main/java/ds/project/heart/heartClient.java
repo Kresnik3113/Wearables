@@ -1,14 +1,10 @@
 package ds.project.heart;
 
-import ds.project.gps.GpsServiceGrpc;
-import ds.project.gps.gpsRequest;
-import ds.project.gps.gpsResponse;
+
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 public class heartClient {
     private static HeartServiceGrpc.HeartServiceBlockingStub blockingStub;

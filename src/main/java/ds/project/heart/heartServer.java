@@ -1,6 +1,6 @@
 package ds.project.heart;
 
-import ds.project.gps.gpsServer;
+
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -85,8 +85,7 @@ public class heartServer extends HeartServiceGrpc.HeartServiceImplBase {
             System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
             // Wait a bit
             Thread.sleep(1000);
-            // Unregister all services
-            //jmdns.unregisterAllServices();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (InterruptedException e) {
