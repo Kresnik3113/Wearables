@@ -1,5 +1,6 @@
 package ds.project.speed;
 
+import ds.project.gps.gpsResponse;
 import ds.project.heart.heartServer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -14,7 +15,7 @@ import java.net.InetAddress;
 import java.util.Properties;
 
 public class speedServer extends SpeedServiceGrpc.SpeedServiceImplBase {
-
+public  static int speed=10;
     public static void main(String[] args){
 
         //create server object
@@ -93,11 +94,32 @@ public class speedServer extends SpeedServiceGrpc.SpeedServiceImplBase {
 
     @Override
     public void howLongLeft(howLongLeftRequest request, StreamObserver<howLongLeftResponse> responseObserver) {
-        super.howLongLeft(request, responseObserver);
+        int distanceLeft=request.getDistanceLeft();
+        int timeLeft=distanceLeft/speed;
+        howLongLeftResponse response=howLongLeftResponse.newBuilder().setTimeLeft(timeLeft).build();
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 
     @Override
     public StreamObserver<speedRequest> speed(StreamObserver<speedResponse> responseObserver) {
-        return super.speed(responseObserver);
+        return new StreamObserver<speedRequest>() {
+            @Override
+            public void onNext(speedRequest value) {
+                speedResponse response = speedResponse.newBuilder().setCurrentSpeed(speed).build();
+                responseObserver.onNext(response);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
     }
 }

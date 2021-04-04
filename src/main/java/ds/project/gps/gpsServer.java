@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
@@ -14,6 +15,7 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
+private static int distance;
 
     public static void main(String[] args){
 
@@ -99,10 +101,10 @@ public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
 
                 int x= value.getXAxis();
                 int y= value.getYAxis();
-                int distance= value.getDistance();
+                distance= value.getDistance();
                 System.out.println(x);
-                int newX=x*(distance/2);
-                int newY=y*(distance/2);
+                int newX=x+(distance/2);
+                int newY=y+(distance/2);
 
                 gpsResponse response = gpsResponse.newBuilder().setXAxis(newX).setYAxis(newY).build();
                 responseObserver.onNext(response);
@@ -122,6 +124,14 @@ public class gpsServer extends GpsServiceGrpc.GpsServiceImplBase {
 
     @Override
     public void timeDistance(tdRequest request, StreamObserver<tdResponse> responseObserver) {
-        super.timeDistance(request, responseObserver);
+        int x=request.getXAxis();
+        int y=request.getYAxis();
+        int xy=x+y;
+        Random rand = new Random();
+        int upperbound = 1000;
+        //generate random values from 0-1000
+        int time = rand.nextInt(upperbound);
+        tdResponse response=tdResponse.newBuilder().setDistanceLeft(xy).setTime(time).build();
+        responseObserver.onNext(response);
     }
 }

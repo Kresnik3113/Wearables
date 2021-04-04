@@ -12,9 +12,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Properties;
+import java.util.Random;
 
 public class heartServer extends HeartServiceGrpc.HeartServiceImplBase {
-
+    Random rand = new Random();
+    int upperbound = 160;
+    //generate random values from 0-160
+    int hrate = rand.nextInt(upperbound);
     public static void main(String[] args){
 
         //create server object
@@ -93,11 +97,39 @@ public class heartServer extends HeartServiceGrpc.HeartServiceImplBase {
 
     @Override
     public StreamObserver<heartRequest> heart(StreamObserver<heartResponse> responseObserver) {
-        return super.heart(responseObserver);
+        return  new StreamObserver<heartRequest>() {
+            @Override
+            public void onNext(heartRequest value) {
+                heartResponse response=heartResponse.newBuilder().setHeartRate(hrate).build();
+                responseObserver.onNext(response);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
     }
 
     @Override
     public void slow(slowRequest request, StreamObserver<slowResponse> responseObserver) {
-        super.slow(request, responseObserver);
+        System.out.println("1");
+        boolean flag=request.getTooHigh();
+        if (flag==true){
+            System.out.println("2");
+            slowResponse response=slowResponse.newBuilder().setTooHigh(true).build();
+            responseObserver.onNext(response);
+        }else {
+            System.out.println("3");
+            slowResponse response=slowResponse.newBuilder().setTooHigh(false).build();
+            responseObserver.onNext(response);
+        }
+        responseObserver.onCompleted();
+
     }
 }

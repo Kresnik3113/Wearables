@@ -32,9 +32,28 @@ public class WearableClient extends  JFrame{
     private JPanel mainPane;
     private JTextField travelDistanceTextField;
     private JButton travelDistanceButton;
+    private JLabel ditanceAndTimeLeftLabel;
+    private JTextField distanceAndTimeLeftTextField;
+    private JButton distanceAndTimeLeftButton;
+    private JTextField timeLeftTextField;
+    private JButton timeLeftButton;
+    private JLabel timeLeftLabel;
+
+    private static  int xaxis;
+    private static  int yaxis;
+    private static  int dleft;
+    private static  int initialXaxis=100;
+    private static  int initialYaxis=100;
+    private static  int speed=1;
 
     public WearableClient(String title){
         super(title);
+        ditanceAndTimeLeftLabel.setVisible(false);
+        distanceAndTimeLeftTextField.setVisible(false);
+        distanceAndTimeLeftButton.setVisible(false);
+        timeLeftLabel.setVisible(false);
+        timeLeftTextField.setVisible(false);
+        timeLeftButton.setVisible(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPane);
         this.pack();
@@ -42,10 +61,25 @@ public class WearableClient extends  JFrame{
         travelDistanceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 int distance= Integer.parseInt(travelDistanceTextField.getText());
                 travelDistanceTextField.setText("");
                 System.out.println(distance);
-                getDestination(100,100,distance);
+                getDestination(initialXaxis,initialYaxis,distance);
+                howFast(speed);
+
+            }
+        });
+        distanceAndTimeLeftButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDistanceLeft(xaxis,yaxis);
+            }
+        });
+        timeLeftButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                howLong(dleft);
             }
         });
     }
@@ -200,11 +234,11 @@ public class WearableClient extends  JFrame{
             StreamObserver<gpsResponse> responseObserver = new StreamObserver<gpsResponse>() {
 
                 @Override
-                public void onNext(gpsResponse msg) {
+                public void onNext(gpsResponse value) {
                     System.out.println("Displaying destination...");
-                    System.out.println("x-axis: " + msg.getXAxis()+" y-axis: "+msg.getYAxis());
-
-
+                    System.out.println("x-axis: " + value.getXAxis()+" y-axis: "+value.getYAxis());
+                    xaxis= value.getXAxis();
+                    yaxis=value.getYAxis();
                 }
 
                 @Override
@@ -240,6 +274,12 @@ public class WearableClient extends  JFrame{
         } catch (Exception e) {
 
         }
+        ditanceAndTimeLeftLabel.setVisible(true);
+        distanceAndTimeLeftTextField.setVisible(true);
+        distanceAndTimeLeftButton.setVisible(true);
+        timeLeftLabel.setVisible(true);
+        timeLeftTextField.setVisible(true);
+        timeLeftButton.setVisible(true);
     }
     public void getDistanceLeft(int x,int y){
         tdRequest request = tdRequest.newBuilder()
@@ -249,7 +289,11 @@ public class WearableClient extends  JFrame{
 
         StreamObserver<tdResponse> responseStreamObserver=new StreamObserver<tdResponse>(){
             public void onNext(tdResponse value) {
-                System.out.println(""+value.getDistanceLeft()+""+value.getTime());
+                int currentLocation=(initialXaxis+initialYaxis)*2;
+                int dLeft=value.getDistanceLeft()-currentLocation;
+                dleft=dLeft;
+                System.out.println("you have "+dLeft+" meters left, and have been running for "+value.getTime()+" seconds");
+                distanceAndTimeLeftTextField.setText("you have "+value.getDistanceLeft()+" meters left, and have been running for "+value.getTime()+" seconds");
 
             }
 
@@ -271,6 +315,7 @@ public class WearableClient extends  JFrame{
             StreamObserver<speedResponse> responseStreamObserver=new StreamObserver<speedResponse>() {
                 @Override
                 public void onNext(speedResponse value) {
+                    getHeartRate();
                     System.out.println("You are going: "+value.getCurrentSpeed()+" meters a second");
                 }
 
@@ -300,25 +345,40 @@ public class WearableClient extends  JFrame{
     public void howLong(int distance){
         howLongLeftRequest longReq=howLongLeftRequest.newBuilder().setDistanceLeft(distance).build();
         howLongLeftResponse longRes=speedBlockingStub.howLongLeft(longReq);
+
         System.out.println("roughly "+longRes.getTimeLeft()+" seconds");
+        System.out.println("wwwwwwwwwwwwwwwwwwwwwwww!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        timeLeftTextField.setText("roughly "+longRes.getTimeLeft()+" seconds");
+
 
     }
     public void slowDown(int hrate) {
-        slowRequest request;
+        slowRequest request = null;
         if (hrate > 139) {
             request = slowRequest.newBuilder().setTooHigh(true).build();
-        } else {
+        }  if(hrate <= 139) {
             request = slowRequest.newBuilder().setTooHigh(false).build();
         }
+
         slowResponse response = heartBlockingStub.slow(request);
 
+        boolean flag=response.getTooHigh();
+        if(flag==true){
+            JOptionPane.showMessageDialog(null, "Heart rate too high, please stop running.", "Shutting down", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        else{
+
+        }
     }
-    public void getHeartRate(int hrate){
-        heartRequest request=heartRequest.newBuilder().setHeartRate(hrate).build();
+    public void getHeartRate(){
+        heartRequest request=heartRequest.newBuilder().setHeartRate(100).build();
         StreamObserver<heartResponse>responseStreamObserver=new StreamObserver<heartResponse>() {
             @Override
             public void onNext(heartResponse value) {
                 System.out.println("Your hear-rate is: "+value.getHeartRate());
+                slowDown(value.getHeartRate());
+
             }
 
             @Override

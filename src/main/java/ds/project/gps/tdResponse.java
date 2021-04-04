@@ -94,6 +94,9 @@ private static final long serialVersionUID = 0L;
   public int getDistanceLeft() {
     return distanceLeft_;
   }
+  public void setDistanceLeft(int dl){
+    distanceLeft_=dl;
+  }
 
   public static final int TIME_FIELD_NUMBER = 2;
   private int time_;
@@ -102,6 +105,10 @@ private static final long serialVersionUID = 0L;
    */
   public int getTime() {
     return time_;
+  }
+
+  public  void setTime(int t){
+    time_=t;
   }
 
   private byte memoizedIsInitialized = -1;
